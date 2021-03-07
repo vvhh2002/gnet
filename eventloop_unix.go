@@ -214,6 +214,8 @@ func (el *eventloop) loopWrite(c *conn) error {
 	// remove the writable event from poller to help the future event-loops.
 	if c.outboundBuffer.IsEmpty() {
 		_ = el.poller.ModRead(c.fd)
+		//MOD here
+		el.eventHandler.AfterWrite(c)
 	}
 
 	return nil

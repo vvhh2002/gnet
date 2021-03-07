@@ -174,6 +174,10 @@ type (
 		// put some code of logging/counting/reporting or any prepositive operations before writing data to client.
 		PreWrite()
 
+		// AfterWrite fires just after any data is written to any client socket, this event function is usually used to
+		// put some code of logging/counting/reporting or any prepositive operations after writing data to client.
+		AfterWrite(c Conn)
+
 		// React fires when a connection sends the server data.
 		// Call c.Read() or c.ReadN(n) within the parameter:c to read incoming data from client.
 		// Parameter:out is the return value which is going to be sent back to the client.
@@ -218,6 +222,11 @@ func (es *EventServer) OnClosed(c Conn, err error) (action Action) {
 // PreWrite fires just before any data is written to any client socket, this event function is usually used to
 // put some code of logging/counting/reporting or any prepositive operations before writing data to client.
 func (es *EventServer) PreWrite() {
+}
+
+// AfterWrite fires just after any data is written to any client socket, this event function is usually used to
+// put some code of logging/counting/reporting or any prepositive operations after writing data to client.
+func (es *EventServer) AfterWrite(c Conn) {
 }
 
 // React fires when a connection sends the server data.
